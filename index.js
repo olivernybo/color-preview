@@ -40,7 +40,8 @@ app.whenReady().then(() => {
 						type: 'input',
 						inputAttrs: {
 							required: true
-						}
+						},
+						alwaysOnTop: true
 					}).then(res => {
 						if (res) {
 							const colors = data.has('colors') ? JSON.parse(data.get('colors')) : []
@@ -58,7 +59,8 @@ app.whenReady().then(() => {
 						label: 'Choose a color to remove.',
 						type: 'select',
 						selectOptions: data.has('colors') ? JSON.parse(data.get('colors')) : [],
-						customStylesheet: path.join('ui', 'css', 'prompt.css')
+						customStylesheet: path.join('ui', 'css', 'prompt.css'),
+						alwaysOnTop: true
 					}).then(res => {
 						if (res) {
 							const colors = data.has('colors') ? JSON.parse(data.get('colors')) : []
@@ -66,7 +68,7 @@ app.whenReady().then(() => {
 							data.set('colors', JSON.stringify(colors))
 							win.webContents.send('colors:new')
 						}
-					}).catch(_ => { })
+					}).catch(e => { console.log(e) })
 				},
 				{
 					label: 'Set Interval',
@@ -78,7 +80,8 @@ app.whenReady().then(() => {
 						inputAttrs: {
 							required: true,
 							type: 'number'
-						}
+						},
+						alwaysOnTop: true
 					}).then(res => {
 						if (res) {
 							data.set('timer', res)
@@ -99,8 +102,12 @@ app.whenReady().then(() => {
 			]
 		},
 		{
-			label: 'Dev',
+			label: 'Dev Tools',
 			click: () => win.webContents.toggleDevTools()
+		},
+		{
+			label: 'Dev Clean',
+			click: () => data.clear()
 		}
 	])
 	Menu.setApplicationMenu(menu)
