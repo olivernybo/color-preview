@@ -47,7 +47,24 @@ app.whenReady().then(() => {
 							data.set('colors', JSON.stringify(colors))
 							win.webContents.send('colors:new')
 						}
-					})
+					}).catch(_ => { })
+				},
+				{
+					label: 'Remove Color',
+					accelerator: 'CmdOrCtrl+-',
+					click: () => prompt({
+						title: 'Remove Color',
+						type: 'select',
+						selectOptions: data.has('colors') ? JSON.parse(data.get('colors')) : [],
+						customStylesheet: path.join('ui', 'css', 'prompt.css')
+					}).then(res => {
+						if (res) {
+							const colors = data.has('colors') ? JSON.parse(data.get('colors')) : []
+							colors.splice(res)
+							data.set('colors', JSON.stringify(colors))
+							win.webContents.send('colors:new')
+						}
+					}).catch(_ => { })
 				}
 			]
 		},
