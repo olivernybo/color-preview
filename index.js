@@ -59,7 +59,7 @@ app.whenReady().then(() => {
 						label: 'Choose a color to remove.',
 						type: 'select',
 						selectOptions: data.has('colors') ? JSON.parse(data.get('colors')) : [],
-						customStylesheet: path.join('ui', 'css', 'prompt.css'),
+						customStylesheet: path.join(__dirname, 'ui', 'css', 'prompt.css'),
 						alwaysOnTop: true
 					}).then(res => {
 						if (res) {
@@ -68,7 +68,7 @@ app.whenReady().then(() => {
 							data.set('colors', JSON.stringify(colors))
 							win.webContents.send('colors:new')
 						}
-					}).catch(e => { console.log(e) })
+					}).catch(_ => { })
 				},
 				{
 					label: 'Set Interval',
