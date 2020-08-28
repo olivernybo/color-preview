@@ -36,6 +36,7 @@ app.whenReady().then(() => {
 					accelerator: 'CmdOrCtrl+Plus',
 					click: () => prompt({
 						title: 'Add Color',
+						label: 'Input a color.',
 						type: 'input',
 						inputAttrs: {
 							required: true
@@ -54,6 +55,7 @@ app.whenReady().then(() => {
 					accelerator: 'CmdOrCtrl+-',
 					click: () => prompt({
 						title: 'Remove Color',
+						label: 'Choose a color to remove.',
 						type: 'select',
 						selectOptions: data.has('colors') ? JSON.parse(data.get('colors')) : [],
 						customStylesheet: path.join('ui', 'css', 'prompt.css')
@@ -63,6 +65,24 @@ app.whenReady().then(() => {
 							colors.splice(res)
 							data.set('colors', JSON.stringify(colors))
 							win.webContents.send('colors:new')
+						}
+					}).catch(_ => { })
+				},
+				{
+					label: 'Set Interval',
+					accelerator: 'CmdOrCtrl+I',
+					click: () => prompt({
+						title: 'Set Interval',
+						label: 'In milliseconds',
+						type: 'input',
+						inputAttrs: {
+							required: true,
+							type: 'number'
+						}
+					}).then(res => {
+						if (res) {
+							data.set('timer', res)
+							win.webContents.send('timer:new')
 						}
 					}).catch(_ => { })
 				}
