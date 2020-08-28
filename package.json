@@ -1,0 +1,23 @@
+{
+  "name": "color-preview",
+  "version": "1.0.0",
+  "description": "Show colors in a window",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olivernybo/color-preview.git"
+  },
+  "author": "Oliver Nybo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olivernybo/color-preview/issues"
+  },
+  "homepage": "https://github.com/olivernybo/color-preview#readme",
+  "dependencies": {
+    "electron": "^10.1.0",
+    "electron-store": "^6.0.0"
+  }
+}
