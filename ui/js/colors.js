@@ -27,5 +27,3 @@ ipcRenderer.on('timer:update', (_, ms) => {
 })
 ipcRenderer.on('timer:new', () => ipcRenderer.invoke('timer:get'))
 ipcRenderer.invoke('timer:get')
-
-ipcRenderer.on('e', (_, e) => console.log(e))
