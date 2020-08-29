@@ -1,9 +1,10 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, globalShortcut, BrowserWindow, Menu, ipcMain } = require('electron')
 const prompt = require('electron-prompt')
 const Store = require('electron-store')
 const path = require('path')
 
 const data = new Store
+let menu
 
 ipcMain.handle('colors:get', event => {
 	if (!data.has('colors')) return
@@ -22,13 +23,19 @@ app.disableHardwareAcceleration()
 
 app.whenReady().then(() => {
 	const win = new BrowserWindow({
-		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: true
 		}
 	})
 
-	const menu = Menu.buildFromTemplate([
+	const toggleFullscreen = () => {
+		let fullscreen = win.isFullScreen()
+		win.setFullScreen(!fullscreen)
+		Menu.setApplicationMenu(fullscreen ? menu : null)
+	}
+	globalShortcut.register('CmdOrCtrl+F', toggleFullscreen)
+
+	menu = Menu.buildFromTemplate([
 		{
 			label: 'Edit',
 			submenu: [
@@ -97,8 +104,7 @@ app.whenReady().then(() => {
 			submenu: [
 				{
 					label: 'Toggle Fullscreen',
-					accelerator: 'CmdOrCtrl+F',
-					click: () => win.setFullScreen(!win.isFullScreen())
+					click: toggleFullscreen
 				}
 			]
 		},
