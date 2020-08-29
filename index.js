@@ -6,7 +6,7 @@ const Store = require('electron-store')
 // General modules
 const path = require('path')
 
-// Localstoragge
+// Localstorage
 const data = new Store
 // Menu
 let menu
