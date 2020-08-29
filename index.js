@@ -26,6 +26,12 @@ ipcMain.handle('timer:get', event => {
 	if (ms) event.sender.send('timer:update', Number(ms))
 })
 
+// Send transition delay from storage
+ipcMain.handle('transition:get', event => {
+	const ms = data.has('transition') ? data.get('transition') : 1000
+	if (ms) event.sender.send('transition:update', Number(ms))
+})
+
 app.disableHardwareAcceleration()
 
 app.whenReady().then(() => {
@@ -102,6 +108,25 @@ app.whenReady().then(() => {
 						if (res) {
 							data.set('timer', res)
 							win.webContents.send('timer:new')
+						}
+					}).catch(_ => { })
+				},
+				{
+					label: 'Set Transition Delay',
+					accelerator: 'CmdOrCtrl+T',
+					click: () => prompt({
+						title: 'Set Transition Delay',
+						label: 'In milliseconds',
+						type: 'input',
+						inputAttrs: {
+							required: true,
+							type: 'number'
+						},
+						alwaysOnTop: true
+					}).then(res => {
+						if (res) {
+							data.set('transition', res)
+							win.webContents.send('transition:new')
 						}
 					}).catch(_ => { })
 				}

@@ -27,3 +27,7 @@ ipcRenderer.on('timer:update', (_, ms) => {
 })
 ipcRenderer.on('timer:new', () => ipcRenderer.invoke('timer:get'))
 ipcRenderer.invoke('timer:get')
+
+ipcRenderer.on('transition:update', (_, ms) => document.querySelector('body').style.transition = `all ${ms}ms linear`)
+ipcRenderer.on('transition:new', () => ipcRenderer.invoke('transition:get'))
+ipcRenderer.invoke('transition:get')
