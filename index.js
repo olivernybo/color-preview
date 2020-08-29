@@ -22,6 +22,7 @@ app.disableHardwareAcceleration()
 
 app.whenReady().then(() => {
 	const win = new BrowserWindow({
+		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: true
 		}
