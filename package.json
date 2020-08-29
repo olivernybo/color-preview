@@ -1,6 +1,6 @@
 {
   "name": "color-preview",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Show colors in a window",
   "main": "index.js",
   "scripts": {
