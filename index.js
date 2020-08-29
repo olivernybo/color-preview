@@ -1,11 +1,17 @@
+// Electron modules
 const { app, globalShortcut, BrowserWindow, Menu, ipcMain } = require('electron')
 const prompt = require('electron-prompt')
 const Store = require('electron-store')
+
+// General modules
 const path = require('path')
 
+// Localstoragge
 const data = new Store
+// Menu
 let menu
 
+// Send colors from storage
 ipcMain.handle('colors:get', event => {
 	if (!data.has('colors')) return
 	const serialized = data.get('colors')
@@ -13,6 +19,7 @@ ipcMain.handle('colors:get', event => {
 	event.sender.send('colors:update', ...colors)
 })
 
+// Send timer interval from storage
 ipcMain.handle('timer:get', event => {
 	if (!data.has('timer')) return
 	const ms = data.get('timer')
@@ -28,6 +35,7 @@ app.whenReady().then(() => {
 		}
 	})
 
+	// Local function to toggle fullscreen
 	const toggleFullscreen = () => {
 		let fullscreen = win.isFullScreen()
 		win.setFullScreen(!fullscreen)
