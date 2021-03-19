@@ -86,7 +86,7 @@ app.whenReady().then(() => {
 					}).then(res => {
 						if (res) {
 							const colors = data.has('colors') ? JSON.parse(data.get('colors')) : []
-							colors.splice(res)
+							colors.splice(res, 1)
 							data.set('colors', JSON.stringify(colors))
 							win.webContents.send('colors:new')
 						}
